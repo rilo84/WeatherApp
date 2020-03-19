@@ -1,0 +1,41 @@
+{
+    "request": {
+      "type": "LatLon",
+      "query": "Lat 59.29 and Lon 18.00",
+      "language": "en",
+      "unit": "m"
+    },
+    "location": {
+      "name": "Alvsjo",
+      "country": "Sweden",
+      "region": "Stockholms Lan",
+      "lat": "59.283",
+      "lon": "18.000",
+      "timezone_id": "Europe/Stockholm",
+      "localtime": "2020-03-16 17:18",
+      "localtime_epoch": 1584379080,
+      "utc_offset": "1.0"
+    },
+    "current": {
+      "observation_time": "04:18 PM",
+      "temperature": 5,
+      "weather_code": 116,
+      "weather_icons": [
+        "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png"
+      ],
+      "weather_descriptions": [
+        "Partly cloudy"
+      ],
+      "wind_speed": 13,
+      "wind_degree": 24,
+      "wind_dir": "NNE",
+      "pressure": 1014,
+      "precip": 0.1,
+      "humidity": 48,
+      "cloudcover": 59,
+      "feelslike": 3,
+      "uv_index": 1,
+      "visibility": 9,
+      "is_day": "yes"
+    }
+  }
