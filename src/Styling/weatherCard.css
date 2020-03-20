@@ -20,7 +20,7 @@
           flex-direction: column;
   width: 50%;
   height: 40vh;
-  background-color: #16394C;
+  background-color: #16394c;
   border: 4px solid #608094;
   border-radius: 5px;
   color: white;
@@ -126,6 +126,17 @@
 @media (max-width: 960px) {
   .wCard {
     width: 90%;
+    height: 50vh;
+    padding: 0.5rem;
+  }
+  .wCard .currWeatherRow img {
+    width: 5rem;
+  }
+  .wCard .forecastRow .forecastCol img {
+    width: 3rem;
+  }
+  .wCard .forecastRow .forecastCol p {
+    text-align: center;
   }
 }
 /*# sourceMappingURL=weatherCard.css.map */

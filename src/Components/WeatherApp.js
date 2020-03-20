@@ -46,7 +46,6 @@ const WeatherApp = () => {
   }, []);
 
   const handleQuery = async query => {
-    
     let fetchedWeather = await GetWeatherData(query);
     let fetchedForecast = await GetForecastData(query);
     if (fetchedWeather.cod === 200) {
