@@ -7,6 +7,14 @@ const SearchBar = props => {
     props.queryString(search);
   };
 
+  const handleFavorites = () =>{
+    let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    storedFavorites.forEach(c => {
+      setSearch(c);
+      handleSubmit();
+    });
+  }
+
   return (
     <>
       <div>
@@ -22,6 +30,9 @@ const SearchBar = props => {
       </div>
       <button className="waves-effect waves-light btn" onClick={handleSubmit}>
         Lägg till
+      </button>
+      <button className="waves-effect waves-light btn" onClick={handleFavorites}>
+        Visa favoriter
       </button>
     </>
   );

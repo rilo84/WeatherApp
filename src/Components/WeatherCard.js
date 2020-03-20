@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Styling/weatherCard.css";
 import CloseImg from "../Images/close.svg";
 import FavImg from "../Images/starInactive.svg";
+import FavoriteActive from "../Images/star.svg";
 import GetDay from "../Helpers/GetDay";
 
 const WeatherCard = props => {
   let forecast = props.forecastData.map(c => {
     let forecastDate = new Date(c.list[0].dt * 1000);
     let forecastDay = forecastDate.getDay();
-
+    let city = c.city.name.trim();
     return (
-      <div key={c.city.name} className="forecastRow">
+      <div key={city} className="forecastRow">
         <div className="forecastCol">
           <p>{GetDay(forecastDay)}</p>
           <img
@@ -80,17 +81,39 @@ const WeatherCard = props => {
     );
   });
 
+  useEffect(()=>{
+    let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    storedFavorites.forEach(c => {
+      let firstWord = c.split(" ");
+      let favImg = document.querySelector(`.${firstWord[0]}`);
+      if(favImg != null){
+        favImg.src=FavoriteActive;
+      }
+    });
+  })
+
   let currentWeather = props.weatherData.map(c => {
     let currDate = new Date(c.dt * 1000).toLocaleString();
     let temperature = Math.round(c.main.temp);
-    let city = c.name;
+    let city = c.name.trim();
     return (
-      <div key={c.name} className="row cardRow">
+      <div key={city} className="row cardRow">
         <div className="wCard">
           <div className="headerRow">
-            <img src={FavImg} alt="favorite" />
-            <h5>{c.name}</h5>
-            <img src={CloseImg} id={c.name} onClick={props.removeCity} alt="close" />
+            <img
+              id={c.name}
+              className={c.name}
+              src={FavImg}
+              onClick={props.toggleFavorite}
+              alt="favorite"
+            />
+            <h5>{city}</h5>
+            <img
+              src={CloseImg}
+              id={city}
+              onClick={props.removeCity}
+              alt="close"
+            />
           </div>
           <div className="currWeatherRow">
             <img
