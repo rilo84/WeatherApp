@@ -8,7 +8,6 @@ import FavoriteInactive from "../Images/starInactive.svg";
 import "../Styling/weatherCard.css";
 
 const WeatherApp = () => {
-
   const [weatherData, setWeatherData] = useState([]);
   const [forecastData, setForecastData] = useState([]);
   const [search, setSearch] = useState([]);
@@ -38,16 +37,15 @@ const WeatherApp = () => {
       navigator.geolocation.getCurrentPosition(success, error);
     };
     fetch();
-
-    let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
-    if(storedFavorites != null){
-      setFavorites(storedFavorites);
+    if(localStorage.getItem('favorites') != null){
+      setFavorites(JSON.parse(localStorage.getItem('favorites')));
     }
   }, []);
 
   const handleQuery = async query => {
     let fetchedWeather = await GetWeatherData(query);
     let fetchedForecast = await GetForecastData(query);
+
     if (fetchedWeather.cod === 200) {
       if (!search.includes(fetchedWeather.name)) {
         setSearch([...search, fetchedWeather.name]);
@@ -59,6 +57,15 @@ const WeatherApp = () => {
     } else {
       console.log("No data");
     }
+  };
+
+  const handleWeatherPromise = async (data) => {
+    setSearch(favorites);
+    setWeatherData(data);
+  };
+
+  const handleForecastPromise = async data => {
+    setForecastData(data);
   };
 
   const removeCity = e => {
@@ -102,7 +109,11 @@ const WeatherApp = () => {
     <div className="Container">
       <div className="row">
         <div className="input-field col s10 offset-s1 m6 offset-m3">
-          <SearchBar queryString={handleQuery} />
+          <SearchBar
+            queryString={handleQuery}
+            weatherPromise={handleWeatherPromise}
+            forecastPromise={handleForecastPromise}
+          />
         </div>
       </div>
       <WeatherCard

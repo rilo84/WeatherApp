@@ -83,6 +83,7 @@ const WeatherCard = props => {
 
   useEffect(()=>{
     let storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    if(storedFavorites != null){
     storedFavorites.forEach(c => {
       let firstWord = c.split(" ");
       let favImg = document.querySelector(`.${firstWord[0]}`);
@@ -90,19 +91,29 @@ const WeatherCard = props => {
         favImg.src=FavoriteActive;
       }
     });
+  }
   })
 
   let currentWeather = props.weatherData.map(c => {
     let currDate = new Date(c.dt * 1000).toLocaleString();
     let temperature = Math.round(c.main.temp);
     let city = c.name.trim();
+    let cityWords = c.name.split(' ');
+    let cityid;
+    if(cityWords.length < 3){
+      cityid = c.name.trim();
+    }
+    else{
+      cityid = c.name;
+    }
+
     return (
       <div key={city} className="row cardRow">
         <div className="wCard">
           <div className="headerRow">
             <img
-              id={c.name}
-              className={c.name}
+              id={cityid}
+              className={cityid}
               src={FavImg}
               onClick={props.toggleFavorite}
               alt="favorite"

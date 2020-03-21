@@ -1,23 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
+import GetWeatherData from "../Repo/GetWeatherData";
+import GetForecastData from "../Repo/GetForecastData";
 
 const SearchBar = props => {
   const [search, setSearch] = useState("");
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    let storedFavorites = JSON.parse(localStorage.getItem("favorites"));
-    setFavorites(storedFavorites);
-  }, []);
 
   const handleSubmit = () => {
     props.queryString(search);
   };
 
   const handleFavorites = async () => {
-    favorites.forEach(c => {
-      props.queryString(c);
+    let weatherPromises = [];
+    let forecastPromises = [];
+
+    let favorites = JSON.parse(localStorage.getItem('favorites'));
+    if(favorites === null) favorites = [];
+
+    for (let i = 0; i < favorites.length; i++) {
+      weatherPromises.push(GetWeatherData(favorites[i]));
+      forecastPromises.push(GetForecastData(favorites[i]));
+    }
+
+    Promise.all(weatherPromises)
+    .then(data => {
+      props.weatherPromise(data);
     });
 
+    Promise.all(forecastPromises)
+    .then(data => {
+      props.forecastPromise(data);
+    });
   };
 
   return (
