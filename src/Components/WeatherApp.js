@@ -45,8 +45,10 @@ const WeatherApp = () => {
   const handleQuery = async query => {
     let fetchedWeather = await GetWeatherData(query);
     let fetchedForecast = await GetForecastData(query);
+    let errElement = document.querySelector(".errMessage");
 
     if (fetchedWeather.cod === 200) {
+      errElement.style.display = "none";
       if (!search.includes(fetchedWeather.name)) {
         setSearch([...search, fetchedWeather.name]);
         let storedWeather = [...weatherData, fetchedWeather];
@@ -56,6 +58,7 @@ const WeatherApp = () => {
       }
     } else {
       console.log("No data");
+      errElement.style.display = "initial";
     }
   };
 

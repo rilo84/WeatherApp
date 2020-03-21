@@ -55,6 +55,7 @@ const SearchBar = props => {
           Lägg till
         </button>
       </div>
+      <p className="errMessage">Staden finns inte i databasen</p>
     </>
   );
 };
