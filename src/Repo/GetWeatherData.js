@@ -1,5 +1,5 @@
 const GetWeatherData = async (city,cord=false) => {
-  let uri ="http://api.openweathermap.org/data/2.5/weather";
+  let uri ="https://api.openweathermap.org/data/2.5/weather";
   let query;
   if(cord === true){
     query = `?${city}`;
